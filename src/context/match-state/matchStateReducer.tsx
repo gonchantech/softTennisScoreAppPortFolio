@@ -1,0 +1,65 @@
+"use client";
+
+import { MatchState } from "@/features/scoring/match/types/match";
+import { MatchStateAction } from "./types/MatchStateAction";
+import { defaultMatchState } from "./constants/defaultMatchState";
+import { FinalGame } from "./domain/FinalGame";
+import { RegularGame } from "./domain/RegularGame";
+
+export const matchStateReducer = (
+  state: MatchState,
+  action: MatchStateAction
+): MatchState => {
+  switch (action.type) {
+    case "SET_INITIAL_STATE_FROM_CACHE":
+      return action.payload;
+    case "ADD_POINT": {
+      if (state.currentGame === action.payload.matchLength) {
+        return FinalGame.addPoint(
+          state,
+          action.payload.pointData,
+          action.payload.matchLength,
+          action.payload.initialServer
+        );
+      } else {
+        return RegularGame.addPoint(
+          state,
+          action.payload.pointData,
+          action.payload.matchLength
+        );
+      }
+    }
+    case "REMOVE_LATEST_POINT": {
+      const newPoints = state.points.slice(0, -1);
+
+      // 2ポイント目以降を削除した場合
+      if (action.payload?.previousState) {
+        return {
+          ...action.payload.previousState,
+          points: newPoints,
+        };
+      }
+
+      // 1個目のポイントを削除した場合
+      return {
+        ...state,
+      };
+    }
+    case "CHANGE_SERVER":
+      return {
+        ...state,
+        currentServer: action.payload.server,
+        servesLeft: 2,
+      };
+
+    case "COMPLETE_MATCH_STATE":
+      return {
+        ...state,
+        isMatchComplete: true,
+      };
+    case "RESET_MATCH_STATE":
+      return defaultMatchState;
+    default:
+      return state;
+  }
+};

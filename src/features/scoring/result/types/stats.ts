@@ -1,0 +1,30 @@
+import { PlayType } from "../../types/play";
+import { Player } from "../../types/player";
+
+export interface PlayerStat {
+  player: Player;
+  name: string;
+  pointsWon: number;
+  errors: number;
+  playTypeBreakdown: Record<PlayType, number>;
+  errorBreakdown: Record<PlayType, number>;
+}
+
+export interface ServeStat {
+  player: Player;
+  name: string;
+  firstServeAttempts: number;
+  firstServeIn: number;
+  successRate: number;
+}
+
+export interface MatchStats {
+  playerStats: PlayerStat[];
+  serveStats: ServeStat[];
+  rallyLengthStats: {
+    shortRallyCount: number;
+    longRallyCount: number;
+    shortRallyPercentage: number;
+    longRallyPercentage: number;
+  };
+}
