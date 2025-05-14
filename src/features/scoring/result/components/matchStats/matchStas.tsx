@@ -15,9 +15,9 @@ export const MatchStats = () => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>試合統計</h2>
+      <PlayerStats points={points} matchMeta={matchMeta} />
       <RallyLengthStats points={points} />
       <ServeStats points={points} matchMeta={matchMeta} />
-      <PlayerStats points={points} matchMeta={matchMeta} />
     </div>
   );
 };

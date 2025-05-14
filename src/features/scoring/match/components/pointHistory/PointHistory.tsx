@@ -8,7 +8,12 @@ import styles from "./PointHistory.module.css";
 import { PointInfo } from "./pointInfo/PointInfo";
 import { getIsTeamAPoint } from "@/utils/getIsTeamAPoint";
 
-export const PointHistory: React.FC = () => {
+interface PointHistoryProps {
+  forResult: boolean;
+}
+
+export const PointHistory: React.FC<PointHistoryProps> = (props) => {
+  const { forResult } = props;
   const { state: matchMeta } = useMatchMeta();
   const { state: matchState, removeLatestPoint } = useMatchState();
   const { playerA1Name, playerA2Name, playerB1Name, playerB2Name } = matchMeta;
@@ -28,14 +33,16 @@ export const PointHistory: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <span>ポイント履歴</span>
-        <Button
-          onClick={removeLatestPoint}
-          variant="solid"
-          color="danger"
-          size="sm"
-        >
-          最新を削除
-        </Button>
+        {!forResult && (
+          <Button
+            onClick={removeLatestPoint}
+            variant="solid"
+            color="danger"
+            size="sm"
+          >
+            最新を削除
+          </Button>
+        )}
       </div>
 
       <div className={styles.pointList}>

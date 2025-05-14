@@ -48,7 +48,7 @@ export const Match: React.FC = () => {
           <PointRecorder setShowErrorModal={setShowErrorModal} />
         </div>
         <div className={styles.pointHistory}>
-          <PointHistory />
+          <PointHistory forResult={false} />
         </div>
       </div>
 
