@@ -6,13 +6,15 @@ import { Player } from "@/features/scoring/types/player";
 import { Button } from "@/components/button";
 import styles from "./MatchControl.module.css";
 import { useMatchMeta } from "@/context/match-meta/useMatchMeta";
+import { useRouter } from "next/navigation";
 
 export const MatchControls: React.FC = () => {
-  const { state: matchMeta } = useMatchMeta();
-  const { state: matchState, completeMatch, resetMatchState } = useMatchState();
+  const { state: matchMeta, resetMatchMeta } = useMatchMeta();
+  const { completeMatch, resetMatchState, changeServer } = useMatchState();
   const [confirmReset, setConfirmReset] = useState(false);
   const [showServerChange, setShowServerChange] = useState(false);
   const [selectedServer, setSelectedServer] = useState<Player>("A1");
+  const router = useRouter();
 
   // Get player names from state
   const players = {
@@ -35,21 +37,26 @@ export const MatchControls: React.FC = () => {
     }
   };
 
-  const handleServerChange = () => {
-    // サーバー変更のロジックを実装
+  const handleTop = () => {
+    resetMatchMeta();
+    resetMatchState();
+    router.push("/");
+  };
+
+  const handleServerChange = (player: Player) => {
+    changeServer(player);
     setShowServerChange(false);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.buttonGroup}>
-        <Button
-          onClick={handleComplete}
-          variant="solid"
-          color="primary"
-          fullWidth
-        >
+        <Button onClick={handleComplete} variant="solid" color="gray" fullWidth>
           試合を終了
+        </Button>
+
+        <Button onClick={handleTop} variant="solid" color="gray" fullWidth>
+          トップ画面へ戻る
         </Button>
 
         <Button
@@ -81,10 +88,7 @@ export const MatchControls: React.FC = () => {
               {Object.values(players).map((player) => (
                 <Button
                   key={player.id}
-                  onClick={() => {
-                    // サーバー変更のロジックを実装
-                    setShowServerChange(false);
-                  }}
+                  onClick={() => handleServerChange(player.id)}
                   variant="solid"
                   color={player.team === "A" ? "secondary" : "primary"}
                   fullWidth

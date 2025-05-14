@@ -17,6 +17,7 @@ export const MatchStateContext = createContext<{
     matchLength: MatchLength,
     initialServer: Player
   ) => void;
+  changeServer: (server: Player) => void;
   removeLatestPoint: () => void;
   completeMatch: () => void;
   resetMatchState: () => void;
@@ -26,6 +27,7 @@ export const MatchStateContext = createContext<{
   setInitialStateFromCache: () => null,
   addPoint: () => null,
   removeLatestPoint: () => null,
+  changeServer: () => null,
   completeMatch: () => null,
   resetMatchState: () => null,
 });

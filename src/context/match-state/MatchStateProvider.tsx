@@ -62,6 +62,10 @@ export const MatchStateProvider: React.FC<{ children: React.ReactNode }> = ({
     dispatch({ type: "COMPLETE_MATCH_STATE" });
   };
 
+  const changeServer = (server: Player) => {
+    dispatch({ type: "CHANGE_SERVER", payload: { server } });
+  };
+
   const resetMatchState = () => {
     stateHistory.current = [];
     localStorage.removeItem("matchState");
@@ -75,6 +79,7 @@ export const MatchStateProvider: React.FC<{ children: React.ReactNode }> = ({
         dispatch,
         setInitialStateFromCache,
         addPoint,
+        changeServer,
         removeLatestPoint,
         completeMatch,
         resetMatchState,
