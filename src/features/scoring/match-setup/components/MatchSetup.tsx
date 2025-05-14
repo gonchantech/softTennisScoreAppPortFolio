@@ -10,10 +10,12 @@ import { useState } from "react";
 import { Player } from "../../types/player";
 import { MatchLength } from "../types/match-setup";
 import { useRouter } from "next/navigation";
+import { useMatchState } from "@/context/match-state/useMatchState";
 
 const MatchSetup: React.FC = () => {
   const router = useRouter();
   const { setupMatchMeta } = useMatchMeta();
+  const { resetMatchState } = useMatchState();
   const [matchLength, setMatchLength] = useState<MatchLength>(5);
   const [teamAName, setTeamAName] = useState("チームA");
   const [teamBName, setTeamBName] = useState("チームB");
@@ -35,6 +37,7 @@ const MatchSetup: React.FC = () => {
       playerB2Name,
       initialServer,
     });
+    resetMatchState();
     router.push("/match");
   };
 

@@ -12,7 +12,7 @@ export const PointHistory: React.FC = () => {
   const { state: matchMeta } = useMatchMeta();
   const { state: matchState, removeLatestPoint } = useMatchState();
   const { playerA1Name, playerA2Name, playerB1Name, playerB2Name } = matchMeta;
-  const { points, isMatchComplete } = matchState;
+  const { points } = matchState;
 
   const reversedPoints = useMemo(() => [...points].reverse(), [points]);
 
@@ -28,16 +28,14 @@ export const PointHistory: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <span>ポイント履歴</span>
-        {!isMatchComplete && (
-          <Button
-            onClick={removeLatestPoint}
-            variant="solid"
-            color="danger"
-            size="sm"
-          >
-            最新を削除
-          </Button>
-        )}
+        <Button
+          onClick={removeLatestPoint}
+          variant="solid"
+          color="danger"
+          size="sm"
+        >
+          最新を削除
+        </Button>
       </div>
 
       <div className={styles.pointList}>

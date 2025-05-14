@@ -8,12 +8,22 @@ import styles from "./MatchControl.module.css";
 import { useMatchMeta } from "@/context/match-meta/useMatchMeta";
 import { useRouter } from "next/navigation";
 
-export const MatchControls: React.FC = () => {
+interface MatchControlsProps {
+  setShowCompleteModal: (show: boolean) => void;
+}
+
+export const MatchControls: React.FC<MatchControlsProps> = ({
+  setShowCompleteModal,
+}) => {
   const { state: matchMeta, resetMatchMeta } = useMatchMeta();
-  const { completeMatch, resetMatchState, changeServer } = useMatchState();
+  const {
+    state: matchState,
+    completeMatch,
+    resetMatchState,
+    changeServer,
+  } = useMatchState();
   const [confirmReset, setConfirmReset] = useState(false);
   const [showServerChange, setShowServerChange] = useState(false);
-  const [selectedServer, setSelectedServer] = useState<Player>("A1");
   const router = useRouter();
 
   // Get player names from state
@@ -25,6 +35,10 @@ export const MatchControls: React.FC = () => {
   };
 
   const handleComplete = () => {
+    if (matchState.isMatchComplete) {
+      setShowCompleteModal(true);
+      return;
+    }
     completeMatch();
   };
 

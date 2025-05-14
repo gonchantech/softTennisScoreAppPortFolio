@@ -5,14 +5,17 @@ import { useMatchMeta } from "@/context/match-meta/useMatchMeta";
 import { useMatchState } from "@/context/match-state/useMatchState";
 import { Button } from "@/components/button";
 import { ToggleButton } from "@/components/toggleButton";
-import { InputField } from "@/components/form";
 import { Dropdown } from "@/components/dropDown";
 import styles from "./PointRecorder.module.css";
 import { BallCourse, ErrorCause, RallyLength } from "../../types/point";
 import { Player } from "@/features/scoring/types/player";
 import { PlayType, playTypeDescriptions } from "@/features/scoring/types/play";
 
-export const PointRecorder: React.FC = () => {
+interface PointRecorderProps {
+  setShowErrorModal: (show: boolean) => void;
+}
+
+export const PointRecorder: React.FC<PointRecorderProps> = (props) => {
   const { state: matchMeta } = useMatchMeta();
   const { state: matchState, addPoint } = useMatchState();
   const { playerA1Name, playerA2Name, playerB1Name, playerB2Name } = matchMeta;
@@ -43,6 +46,11 @@ export const PointRecorder: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (matchState.isMatchComplete) {
+      props.setShowErrorModal(true);
+      return;
+    }
+
     const pointData = {
       firstServeIn,
       rallyLength,
@@ -53,7 +61,6 @@ export const PointRecorder: React.FC = () => {
     };
 
     addPoint(pointData, matchMeta.matchLength, matchMeta.initialServer);
-
     // Reset form
     setFirstServeIn(true);
     setRallyLength("short");
