@@ -52,6 +52,7 @@ export const PointRecorder: React.FC<PointRecorderProps> = (props) => {
     }
 
     const pointData = {
+      server: matchState.currentServer,
       firstServeIn,
       rallyLength,
       player,
@@ -65,6 +66,11 @@ export const PointRecorder: React.FC<PointRecorderProps> = (props) => {
     setFirstServeIn(true);
     setRallyLength("short");
     setIsError(false);
+  };
+
+  // チームAの選手かどうかを判定する関数
+  const isTeamAPlayer = (playerId: Player) => {
+    return playerId === "A1" || playerId === "A2";
   };
 
   return (
@@ -98,14 +104,26 @@ export const PointRecorder: React.FC<PointRecorderProps> = (props) => {
 
         <div className={styles.formGroup}>
           <label className={styles.label}>最終ショット選手</label>
-          <Dropdown
-            value={player}
-            onChange={(value) => setPlayer(value as Player)}
-            options={Object.entries(playerNameMap).map(([key, name]) => ({
-              value: key,
-              label: name,
-            }))}
-          />
+          <div className={styles.playerButtons}>
+            {Object.entries(playerNameMap).map(([playerId, name]) => (
+              <Button
+                key={playerId}
+                variant="solid"
+                color={
+                  player === playerId
+                    ? isTeamAPlayer(playerId as Player)
+                      ? "secondary"
+                      : "primary"
+                    : "gray"
+                }
+                onClick={() => setPlayer(playerId as Player)}
+                type="button"
+                fullWidth
+              >
+                {name}
+              </Button>
+            ))}
+          </div>
         </div>
 
         <div className={styles.formGroup}>

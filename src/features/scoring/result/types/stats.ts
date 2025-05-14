@@ -18,13 +18,15 @@ export interface ServeStat {
   successRate: number;
 }
 
+export interface RallyLengthStat {
+  shortRallyCount: number;
+  longRallyCount: number;
+  shortRallyPercentage: number;
+  longRallyPercentage: number;
+}
+
 export interface MatchStats {
   playerStats: PlayerStat[];
   serveStats: ServeStat[];
-  rallyLengthStats: {
-    shortRallyCount: number;
-    longRallyCount: number;
-    shortRallyPercentage: number;
-    longRallyPercentage: number;
-  };
+  rallyLengthStats: RallyLengthStat[];
 }

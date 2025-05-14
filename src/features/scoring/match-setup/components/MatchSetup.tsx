@@ -15,7 +15,7 @@ import { useMatchState } from "@/context/match-state/useMatchState";
 const MatchSetup: React.FC = () => {
   const router = useRouter();
   const { setupMatchMeta } = useMatchMeta();
-  const { resetMatchState } = useMatchState();
+  const { resetMatchState, changeServer } = useMatchState();
   const [matchLength, setMatchLength] = useState<MatchLength>(5);
   const [teamAName, setTeamAName] = useState("チームA");
   const [teamBName, setTeamBName] = useState("チームB");
@@ -38,6 +38,7 @@ const MatchSetup: React.FC = () => {
       initialServer,
     });
     resetMatchState();
+    changeServer(initialServer);
     router.push("/match");
   };
 

@@ -8,6 +8,7 @@ export type ErrorCause = "side_out" | "back_out" | "net";
 export type RallyLength = "short" | "long";
 
 export interface PointData {
+  server: Player;
   firstServeIn: boolean;
   rallyLength: RallyLength;
   player: Player;

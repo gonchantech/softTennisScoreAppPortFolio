@@ -49,6 +49,10 @@ export const matchStateReducer = (
       return {
         ...state,
         currentServer: action.payload.server,
+        currentServerTeam:
+          action.payload.server === "A1" || action.payload.server === "A2"
+            ? "A"
+            : "B",
         servesLeft: 2,
       };
 

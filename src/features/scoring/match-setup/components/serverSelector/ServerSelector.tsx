@@ -1,4 +1,3 @@
-import { useMatchMeta } from "@/context/match-meta/useMatchMeta";
 import { Button } from "@/components/button";
 import styles from "./ServerSelector.module.css";
 import { Player } from "@/features/scoring/types/player";
