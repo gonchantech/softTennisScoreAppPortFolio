@@ -15,6 +15,10 @@ export const MatchHistory: React.FC = () => {
   const isLoading = false;
   const router = useRouter();
 
+  const handleViewDetails = (matchId: string) => {
+    router.push(`/match/history/${matchId}`);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -27,7 +31,11 @@ export const MatchHistory: React.FC = () => {
           New Match
         </Button>
       </div>
-      <MatchHistoryList matches={matches} isLoading={isLoading} />
+      <MatchHistoryList
+        matches={matches}
+        isLoading={isLoading}
+        onViewDetails={(matchId) => handleViewDetails(matchId)}
+      />
     </div>
   );
 };
