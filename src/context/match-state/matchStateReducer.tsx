@@ -1,10 +1,8 @@
 "use client";
-
-import { MatchState } from "@/features/scoring/match/types/match";
+import { MatchState } from "@/features/match";
 import { MatchStateAction } from "./types/MatchStateAction";
 import { defaultMatchState } from "./constants/defaultMatchState";
-import { FinalGame } from "./domain/FinalGame";
-import { RegularGame } from "./domain/RegularGame";
+import { FinalGame, RegularGame } from "./domain";
 
 export const matchStateReducer = (
   state: MatchState,

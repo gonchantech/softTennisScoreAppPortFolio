@@ -1,9 +1,8 @@
 "use client";
-
-import { MatchMeta } from "@/features/scoring/match-setup/types/match-setup";
+import { useEffect, useReducer } from "react";
+import { MatchMeta } from "@/features/match";
 import { MatchMetaContext } from "./MatchMetaContext";
 import { defaultMatchMeta } from "./constants/defaultMatchMeta";
-import { useEffect, useReducer } from "react";
 import { matchMetaReducer } from "./matchMetaReducer";
 
 export const MatchMetaProvider: React.FC<{ children: React.ReactNode }> = ({

@@ -1,11 +1,9 @@
-import { MatchState } from "@/features/scoring/match/types/match";
+import { MatchState, RawPointInput, Player } from "@/features/match";
 import { calculateNewScore } from "./calculateNewScore";
 import { checkIsGameComplete } from "./checkIsGameComplete";
 import { checkIsMatchComplete } from "./checkIsMatchComplete";
-import { RawPointInput } from "@/features/scoring/match/types/point";
 import { handleGameComplete } from "./handleGame/handleGameComplete";
 import { handleGameInProgress } from "./handleGame/handleGameInProgress";
-import { Player } from "@/features/scoring/types/player";
 
 export function addPoint(
   calculateNewServerWhenGameNotFinished: (

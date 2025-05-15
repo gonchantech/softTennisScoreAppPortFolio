@@ -1,6 +1,6 @@
 import { defaultMatchMeta } from "./constants/defaultMatchMeta";
 import { MatchMetaAction } from "./types/MatchMetaAction";
-import { MatchMeta } from "@/features/scoring/match-setup/types/match-setup";
+import { MatchMeta } from "@/features/match";
 
 export const matchMetaReducer = (
   state: MatchMeta,

@@ -1,4 +1,4 @@
-import { MatchMeta } from "@/features/scoring/match-setup/types/match-setup";
+import { MatchMeta } from "@/features/match";
 
 export const defaultMatchMeta: MatchMeta = {
   matchLength: 5,

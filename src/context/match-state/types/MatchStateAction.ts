@@ -1,7 +1,9 @@
-import { MatchLength } from "@/features/scoring/match-setup/types/match-setup";
-import { MatchState } from "../../../features/scoring/match/types/match";
-import { RawPointInput } from "../../../features/scoring/match/types/point";
-import { Player } from "../../../features/scoring/types/player";
+import {
+  MatchLength,
+  RawPointInput,
+  Player,
+  MatchState,
+} from "@/features/match";
 
 export type MatchStateAction =
   | { type: "SET_INITIAL_STATE_FROM_CACHE"; payload: MatchState }

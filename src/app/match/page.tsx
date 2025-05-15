@@ -1,9 +1,9 @@
-import { Match } from "@/features/scoring/match";
+import { Scoring } from "@/features/match";
 
 export default function MatchPage() {
   return (
     <div>
-      <Match />
+      <Scoring />
     </div>
   );
 }

@@ -1,12 +1,13 @@
 "use client";
-
-import { MatchState } from "@/features/scoring/match/types/match";
-import { RawPointInput } from "@/features/scoring/match/types/point";
-import { MatchStateAction } from "./types/MatchStateAction";
 import { createContext } from "react";
+import {
+  MatchState,
+  RawPointInput,
+  MatchLength,
+  Player,
+} from "@/features/match";
+import { MatchStateAction } from "./types/MatchStateAction";
 import { defaultMatchState } from "./constants/defaultMatchState";
-import { MatchLength } from "@/features/scoring/match-setup/types/match-setup";
-import { Player } from "@/features/scoring/types/player";
 
 export const MatchStateContext = createContext<{
   state: MatchState;

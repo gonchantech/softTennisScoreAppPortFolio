@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRef } from "react";
-import { useReducer } from "react";
-import { MatchState } from "../../features/scoring/match/types/match";
-import { RawPointInput } from "../../features/scoring/match/types/point";
-import { defaultMatchState } from "./constants/defaultMatchState";
+import { useEffect, useRef, useReducer } from "react";
+import {
+  MatchState,
+  RawPointInput,
+  MatchLength,
+  Player,
+} from "@/features/match";
 import { MatchStateContext } from "./MatchStateContext";
 import { matchStateReducer } from "./matchStateReducer";
-import { MatchLength } from "@/features/scoring/match-setup/types/match-setup";
-import { Player } from "@/features/scoring/types/player";
+import { defaultMatchState } from "./constants/defaultMatchState";
 
 export const MatchStateProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

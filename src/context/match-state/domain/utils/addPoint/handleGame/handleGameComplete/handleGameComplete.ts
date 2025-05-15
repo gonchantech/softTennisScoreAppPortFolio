@@ -1,5 +1,4 @@
-import { MatchState } from "@/features/scoring/match/types/match";
-import { RawPointInput } from "@/features/scoring/match/types/point";
+import { MatchState, RawPointInput } from "@/features/match";
 import { changeStateAfterGameComplete } from "./changeStateAfterGameComplete";
 import { createNewPointEntry } from "../createNewPointEntry";
 

@@ -1,4 +1,4 @@
-import MatchSetup from "@/features/scoring/match-setup/components/MatchSetup";
+import { MatchSetup } from "@/features/match";
 
 export default function Home() {
   return (

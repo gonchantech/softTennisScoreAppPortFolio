@@ -1,4 +1,4 @@
-import { RawPointInput } from "@/features/scoring/match/types/point";
+import { RawPointInput } from "@/features/match";
 import { getIsTeamAPoint } from "@/utils/getIsTeamAPoint";
 
 export function calculateNewScore(

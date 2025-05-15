@@ -1,7 +1,5 @@
-import { MatchState } from "@/features/scoring/match/types/match";
-import { RawPointInput } from "@/features/scoring/match/types/point";
-import { Player } from "@/features/scoring/types/player";
-import { addPoint } from "./utils/addPoint";
+import { MatchState, RawPointInput, Player } from "@/features/match";
+import { addPoint } from "./utils/addPoint/addPoint";
 
 export class RegularGame {
   private static readonly pointLength = 4;
