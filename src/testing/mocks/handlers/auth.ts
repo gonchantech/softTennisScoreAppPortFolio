@@ -25,6 +25,7 @@ const loginHandler = http.post(`${API_URL}/auth/login`, async ({ request }) => {
     status: 200,
     headers: {
       "Set-Cookie": `${AUTH_COOKIE}=${jwt}; Path=/; HttpOnly`,
+      "Content-Type": "application/json",
     },
   });
 });

@@ -36,7 +36,7 @@ const MatchHistoryPage = () => {
       <MatchStats match={match} />
       <div className={styles.container}>
         <Button color="gray" size="md" onClick={handleClick} fullWidth>
-          トップ画面へ戻る
+          一覧へ戻る
         </Button>
       </div>
     </div>

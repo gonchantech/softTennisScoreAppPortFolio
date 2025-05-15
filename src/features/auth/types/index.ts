@@ -1,7 +1,6 @@
 export type AuthUser = {
   id: string;
   name: string;
-  password: string;
 };
 
 export type LoginData = {
