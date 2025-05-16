@@ -1,1 +1,1 @@
-export * from "./MatchSetup";
+export * from "./MatchSetupForm";

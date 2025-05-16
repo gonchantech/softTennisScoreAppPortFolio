@@ -1,15 +1,24 @@
 "use client";
-import styles from "./page.module.css";
+
 import { LoginForm } from "@/features/auth/components/login";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Container } from "@/components/container/Container";
 
 const LoginPage = () => {
+  const router = useRouter();
+  const redirect = useSearchParams().get("redirect") as string;
+
+  const onSuccess = () => {
+    if (redirect) {
+      router.push(redirect);
+    } else {
+      router.push("/");
+    }
+  };
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <h1 className={styles.title}>ログイン</h1>
-        <LoginForm />
-      </div>
-    </div>
+    <Container variant="center" height="auto">
+      <LoginForm onSuccess={onSuccess} />
+    </Container>
   );
 };
 

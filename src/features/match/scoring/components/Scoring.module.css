@@ -8,27 +8,6 @@
   min-height: 100vh;
 }
 
-.scoreTracker {
-  width: 100%;
-}
-
-.mainContent {
-  display: flex;
-  gap: 1rem;
-}
-
-.pointRecorder {
-  flex: 1;
-}
-
-.pointHistory {
-  flex: 1;
-}
-
-.matchControls {
-  width: 100%;
-}
-
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
   .mainContent {

@@ -4,6 +4,7 @@
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   overflow: hidden;
   height: 100%;
+  flex: 1;
 }
 
 .header {
@@ -30,6 +31,8 @@
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   text-align: center;
   color: var(--color-gray-4);
+  flex: 1;
+  min-height: 4rem;
 }
 
 .emptyMessage {

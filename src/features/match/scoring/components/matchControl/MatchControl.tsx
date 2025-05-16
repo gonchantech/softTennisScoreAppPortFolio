@@ -6,6 +6,7 @@ import { useMatchMeta } from "@/context/match-meta/useMatchMeta";
 import { useMatchState } from "@/context/match-state/useMatchState";
 import { Button } from "@/components/button";
 import { Player } from "@/features/match";
+import { Stack } from "@/components/stack";
 
 interface MatchControlsProps {
   setShowCompleteModal: (show: boolean) => void;
@@ -63,7 +64,7 @@ export const MatchControls: React.FC<MatchControlsProps> = ({
 
   return (
     <div className={styles.container}>
-      <div className={styles.buttonGroup}>
+      <Stack direction="horizontal" gap="md">
         <Button onClick={handleComplete} variant="solid" color="gray" fullWidth>
           試合を終了
         </Button>
@@ -89,7 +90,7 @@ export const MatchControls: React.FC<MatchControlsProps> = ({
         >
           {confirmReset ? "リセットを確認" : "試合をリセット"}
         </Button>
-      </div>
+      </Stack>
 
       {/* Server Change Modal */}
       {showServerChange && (

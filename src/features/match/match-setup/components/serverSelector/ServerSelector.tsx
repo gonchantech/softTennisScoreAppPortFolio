@@ -11,49 +11,42 @@ interface ServerSelectorProps {
   playerB2Name: string;
 }
 
-export const ServerSelector: React.FC<ServerSelectorProps> = ({
-  initialServer,
-  onInitialServerChange,
-  playerA1Name,
-  playerA2Name,
-  playerB1Name,
-  playerB2Name,
-}) => {
+export const ServerSelector: React.FC<ServerSelectorProps> = (props) => {
   return (
     <div>
       <label className={styles.label}>最初のサーバー</label>
       <div className={styles.buttonGrid}>
         <Button
           variant="solid"
-          color={initialServer === "A1" ? "secondary" : "gray"}
-          onClick={() => onInitialServerChange("A1")}
+          color={props.initialServer === "A1" ? "secondary" : "gray"}
+          onClick={() => props.onInitialServerChange("A1")}
           type="button"
         >
-          {playerA1Name}
+          {props.playerA1Name}
         </Button>
         <Button
           variant="solid"
-          color={initialServer === "A2" ? "secondary" : "gray"}
-          onClick={() => onInitialServerChange("A2")}
+          color={props.initialServer === "A2" ? "secondary" : "gray"}
+          onClick={() => props.onInitialServerChange("A2")}
           type="button"
         >
-          {playerA2Name}
+          {props.playerA2Name}
         </Button>
         <Button
           variant="solid"
-          color={initialServer === "B1" ? "primary" : "gray"}
-          onClick={() => onInitialServerChange("B1")}
+          color={props.initialServer === "B1" ? "primary" : "gray"}
+          onClick={() => props.onInitialServerChange("B1")}
           type="button"
         >
-          {playerB1Name}
+          {props.playerB1Name}
         </Button>
         <Button
           variant="solid"
-          color={initialServer === "B2" ? "primary" : "gray"}
-          onClick={() => onInitialServerChange("B2")}
+          color={props.initialServer === "B2" ? "primary" : "gray"}
+          onClick={() => props.onInitialServerChange("B2")}
           type="button"
         >
-          {playerB2Name}
+          {props.playerB2Name}
         </Button>
       </div>
     </div>

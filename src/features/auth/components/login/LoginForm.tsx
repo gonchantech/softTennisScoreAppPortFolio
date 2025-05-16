@@ -5,7 +5,6 @@ import { Button } from "@/components/button/Button";
 import { InputField } from "@/components/form";
 import styles from "./LoginForm.module.css";
 import { useLogin } from "@/features/auth/api/login";
-import { useRouter, useSearchParams } from "next/navigation";
 
 type LoginFormData = {
   id: string;
@@ -13,21 +12,16 @@ type LoginFormData = {
   password: string;
 };
 
-export const LoginForm: React.FC = () => {
+interface LoginFormProps {
+  onSuccess: () => void;
+}
+
+export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>();
-  const router = useRouter();
-  const redirect = useSearchParams().get("redirect") as string;
-  const onSuccess = () => {
-    if (redirect) {
-      router.push(redirect);
-    } else {
-      router.push("/");
-    }
-  };
 
   const login = useLogin({ onSuccess });
 
@@ -36,46 +30,49 @@ export const LoginForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-      <InputField
-        id="id"
-        label="ID"
-        type="text"
-        {...register("id", { required: "IDは必須です" })}
-        error={errors.id?.message}
-        placeholder="IDを入力"
-        size="md"
-      />
+    <div className={styles.content}>
+      <h1 className={styles.title}>ログイン</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <InputField
+          id="id"
+          label="ID"
+          type="text"
+          {...register("id", { required: "IDは必須です" })}
+          error={errors.id?.message}
+          placeholder="IDを入力"
+          size="md"
+        />
 
-      <InputField
-        id="name"
-        label="名前"
-        type="text"
-        {...register("name", { required: "名前は必須です" })}
-        error={errors.name?.message}
-        placeholder="名前を入力"
-        size="md"
-      />
+        <InputField
+          id="name"
+          label="名前"
+          type="text"
+          {...register("name", { required: "名前は必須です" })}
+          error={errors.name?.message}
+          placeholder="名前を入力"
+          size="md"
+        />
 
-      <InputField
-        id="password"
-        label="パスワード"
-        type="password"
-        {...register("password", { required: "パスワードは必須です" })}
-        error={errors.password?.message}
-        placeholder="••••••••"
-        size="md"
-      />
+        <InputField
+          id="password"
+          label="パスワード"
+          type="password"
+          {...register("password", { required: "パスワードは必須です" })}
+          error={errors.password?.message}
+          placeholder="••••••••"
+          size="md"
+        />
 
-      <Button
-        type="submit"
-        color="primary"
-        size="md"
-        isLoading={isSubmitting}
-        fullWidth
-      >
-        ログイン
-      </Button>
-    </form>
+        <Button
+          type="submit"
+          color="primary"
+          size="md"
+          isLoading={isSubmitting}
+          fullWidth
+        >
+          ログイン
+        </Button>
+      </form>
+    </div>
   );
 };

@@ -1,9 +1,16 @@
-import { MatchSetup } from "@/features/match";
+"use client";
 
-export default function Home() {
+import { useRouter } from "next/navigation";
+import { MatchSetupForm } from "@/features/match/match-setup/components/MatchSetupForm";
+
+export default function MatchSetupPage() {
+  const router = useRouter();
+  const onSubmit = () => {
+    router.push("/match");
+  };
   return (
-    <div>
-      <MatchSetup />
-    </div>
+    <>
+      <MatchSetupForm onSubmit={onSubmit} />
+    </>
   );
 }

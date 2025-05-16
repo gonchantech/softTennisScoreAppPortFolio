@@ -1,15 +1,18 @@
 "use client";
-import styles from "./page.module.css";
 import { SignupForm } from "@/features/auth/components/signup";
+import { useRouter } from "next/navigation";
+import { Container } from "@/components/container/Container";
 
 const SignupPage = () => {
+  const router = useRouter();
+
+  const onSuccess = () => {
+    router.push("/auth/login");
+  };
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <h1 className={styles.title}>新規登録</h1>
-        <SignupForm />
-      </div>
-    </div>
+    <Container variant="center" height="auto">
+      <SignupForm onSuccess={onSuccess} />
+    </Container>
   );
 };
 

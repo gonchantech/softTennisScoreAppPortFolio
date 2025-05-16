@@ -14,7 +14,6 @@ export const getMatch = ({ matchId }: GetMatchParams): Promise<MatchResult> => {
     ? { headers: { Authorization: `Bearer ${getCookieValue(AUTH_COOKIE)}` } }
     : { withCredentials: true };
   return apiClient.get(`/matches/${matchId}`, options).then((res) => {
-    console.log("res", res);
     return res.data;
   });
 };

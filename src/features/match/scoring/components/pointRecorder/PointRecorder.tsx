@@ -1,6 +1,6 @@
 "use client";
 import styles from "./PointRecorder.module.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMatchMeta } from "@/context/match-meta/useMatchMeta";
 import { useMatchState } from "@/context/match-state/useMatchState";
 import { Button } from "@/components/button";
@@ -17,6 +17,7 @@ import {
 
 interface PointRecorderProps {
   setShowErrorModal: (show: boolean) => void;
+  setShowCompleteModal: (show: boolean) => void;
 }
 
 export const PointRecorder: React.FC<PointRecorderProps> = (props) => {
@@ -33,7 +34,6 @@ export const PointRecorder: React.FC<PointRecorderProps> = (props) => {
   const [isError, setIsError] = useState<boolean>(false);
   const [errorCause, setErrorCause] = useState<ErrorCause>("side_out");
 
-  // Player names for displaying in dropdowns
   const playerNameMap = {
     A1: playerA1Name,
     A2: playerA2Name,
@@ -66,6 +66,7 @@ export const PointRecorder: React.FC<PointRecorderProps> = (props) => {
     };
 
     addPoint(pointData, matchMeta.matchLength, matchMeta.initialServer);
+
     // Reset form
     setFirstServeIn(true);
     setRallyLength("short");
@@ -76,6 +77,12 @@ export const PointRecorder: React.FC<PointRecorderProps> = (props) => {
   const isTeamAPlayer = (playerId: Player) => {
     return playerId === "A1" || playerId === "A2";
   };
+
+  useEffect(() => {
+    if (matchState.isMatchComplete) {
+      props.setShowCompleteModal(true);
+    }
+  }, [matchState.isMatchComplete]);
 
   return (
     <div className={styles.container}>

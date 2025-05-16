@@ -15,14 +15,6 @@ export const metadata: Metadata = {
   description: "ソフトテニスの試合スコアを記録・管理するアプリケーション",
 };
 
-const AppLayout = ({ children }: { children: React.ReactNode }) => (
-  <div className={styles.app}>
-    <Header />
-    <main className={styles.main}>{children}</main>
-    <Footer />
-  </div>
-);
-
 export default function RootLayout({
   children,
 }: {
@@ -32,7 +24,11 @@ export default function RootLayout({
     <html lang="ja">
       <body className={inter.className}>
         <AppProvider>
-          <AppLayout>{children}</AppLayout>
+          <div className={styles.app}>
+            <Header />
+            <main className={styles.main}>{children}</main>
+            <Footer />
+          </div>
         </AppProvider>
       </body>
     </html>

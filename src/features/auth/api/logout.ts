@@ -15,7 +15,7 @@ export const useLogout = ({ onSuccess }: UseLogoutOptions) => {
   const { mutate: submit, isPending } = useMutation({
     mutationFn: logout,
     onSuccess: () => {
-      queryClient.clear();
+      queryClient.invalidateQueries({ queryKey: ["auth-user"] });
       onSuccess?.();
     },
   });

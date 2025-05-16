@@ -16,40 +16,27 @@ interface TeamSetupProps {
   onPlayerB2NameChange: (name: string) => void;
 }
 
-export const TeamSetup: React.FC<TeamSetupProps> = ({
-  teamAName,
-  teamBName,
-  playerA1Name,
-  playerA2Name,
-  playerB1Name,
-  playerB2Name,
-  onTeamANameChange,
-  onTeamBNameChange,
-  onPlayerA1NameChange,
-  onPlayerA2NameChange,
-  onPlayerB1NameChange,
-  onPlayerB2NameChange,
-}) => {
+export const TeamSetup: React.FC<TeamSetupProps> = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.teamContainer}>
         <h3 className={styles.teamTitleA}>チームA</h3>
         <InputField
           label="チーム名"
-          value={teamAName}
-          onChange={(e) => onTeamANameChange(e.target.value)}
+          value={props.teamAName}
+          onChange={(e) => props.onTeamANameChange(e.target.value)}
           required
         />
         <InputField
           label="選手1"
-          value={playerA1Name}
-          onChange={(e) => onPlayerA1NameChange(e.target.value)}
+          value={props.playerA1Name}
+          onChange={(e) => props.onPlayerA1NameChange(e.target.value)}
           required
         />
         <InputField
           label="選手2"
-          value={playerA2Name}
-          onChange={(e) => onPlayerA2NameChange(e.target.value)}
+          value={props.playerA2Name}
+          onChange={(e) => props.onPlayerA2NameChange(e.target.value)}
           required
         />
       </div>
@@ -58,20 +45,20 @@ export const TeamSetup: React.FC<TeamSetupProps> = ({
         <h3 className={styles.teamTitleB}>チームB</h3>
         <InputField
           label="チーム名"
-          value={teamBName}
-          onChange={(e) => onTeamBNameChange(e.target.value)}
+          value={props.teamBName}
+          onChange={(e) => props.onTeamBNameChange(e.target.value)}
           required
         />
         <InputField
           label="選手1"
-          value={playerB1Name}
-          onChange={(e) => onPlayerB1NameChange(e.target.value)}
+          value={props.playerB1Name}
+          onChange={(e) => props.onPlayerB1NameChange(e.target.value)}
           required
         />
         <InputField
           label="選手2"
-          value={playerB2Name}
-          onChange={(e) => onPlayerB2NameChange(e.target.value)}
+          value={props.playerB2Name}
+          onChange={(e) => props.onPlayerB2NameChange(e.target.value)}
           required
         />
       </div>

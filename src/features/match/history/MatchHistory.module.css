@@ -4,12 +4,6 @@
   gap: 1.5rem;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .title {
   font-size: 1.5rem;
   font-weight: 700;
