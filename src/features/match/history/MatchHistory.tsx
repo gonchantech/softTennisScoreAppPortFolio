@@ -4,15 +4,11 @@ import styles from "./MatchHistory.module.css";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/button/Button";
 import { PlusIcon } from "@/components/icons/PlusIcon";
-//import { useMatches } from "../api/getMatches";
+import { useMatches } from "../api/getMatches";
 import { MatchHistoryList } from "./matchHistoryList";
-import { MatchResultMeta } from "../match-setup";
-import { testData } from "@/testing/testData";
 
 export const MatchHistory: React.FC = () => {
-  //const { data: matches, isLoading } = useMatches();
-  const matches: MatchResultMeta[] = testData.matchMeta;
-  const isLoading = false;
+  const { data: matches, isLoading } = useMatches();
   const router = useRouter();
 
   const handleViewDetails = (matchId: string) => {

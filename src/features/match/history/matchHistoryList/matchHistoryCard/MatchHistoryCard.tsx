@@ -23,7 +23,7 @@ export const MatchHistoryCard: React.FC<MatchHistoryCardProps> = ({
           <p className={styles.teamNames}>
             {match.teamAName} vs {match.teamBName}
           </p>
-          <p className={styles.date}>{match.savedAt.toLocaleString()}</p>
+          <p className={styles.date}>{match.savedAt?.toLocaleString()}</p>
         </div>
         <div className={styles.score}>
           <p className={styles.scoreValue}>

@@ -49,7 +49,9 @@ const saveMatchHandler = http.post(
         match: savedMatch,
         points: savedPoints,
       }),
-      { status: 201 }
+      {
+        status: 201,
+      }
     );
   }
 );
@@ -67,16 +69,21 @@ const getMatchsHandler = http.get(`${API_URL}/matches`, async ({ request }) => {
 
   await new Promise((resolve) => setTimeout(resolve, 300));
 
-  return new HttpResponse(JSON.stringify(matches), { status: 200 });
+  return new HttpResponse(JSON.stringify(matches), {
+    status: 200,
+  });
 });
 
 const getMatchHandler = http.get(
   `${API_URL}/matches/:id`,
-  async ({ request }) => {
+  async ({ params, request }) => {
     const user = requireAuth({ req: request });
-    const matchId = request.headers.get("matchId") as string;
+    const matchId = params.id as string;
 
-    const matchMeta = db.matchMetas.findFirst({
+    console.log("matchId", matchId);
+    console.log("user", user);
+
+    const matchResultMeta = db.matchMetas.findFirst({
       where: {
         id: {
           equals: matchId,
@@ -87,7 +94,8 @@ const getMatchHandler = http.get(
       },
     });
 
-    if (!matchMeta) {
+    console.log("matchResultMeta", matchResultMeta);
+    if (!matchResultMeta) {
       await new Promise((resolve) => setTimeout(resolve, 300));
       return new HttpResponse("Match not found", { status: 404 });
     }
@@ -104,10 +112,14 @@ const getMatchHandler = http.get(
 
     return new HttpResponse(
       JSON.stringify({
-        matchMeta,
-        points,
+        data: {
+          matchResultMeta,
+          points,
+        },
       }),
-      { status: 200 }
+      {
+        status: 200,
+      }
     );
   }
 );

@@ -1,9 +1,17 @@
+"use client";
+
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/lib/apiClient";
 import { MatchResultMeta } from "../match-setup";
+import { IS_DEVELOPMENT } from "@/config/constants";
+import { getCookieValue } from "@/utils/getCookieValue";
+import { AUTH_COOKIE } from "@/testing/mocks/utils";
 
 export const getMatches = (): Promise<MatchResultMeta[]> => {
-  return apiClient.get("/matches");
+  const options = IS_DEVELOPMENT
+    ? { headers: { Authorization: `Bearer ${getCookieValue(AUTH_COOKIE)}` } }
+    : { withCredentials: true };
+  return apiClient.get("/matches", options);
 };
 
 export const useMatches = () => {

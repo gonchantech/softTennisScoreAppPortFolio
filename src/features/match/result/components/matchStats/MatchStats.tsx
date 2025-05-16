@@ -9,7 +9,7 @@ interface MatchStatsProps {
   match: Match;
 }
 
-export const MatchStats: React.FC<MatchStatsProps> = ({ match }) => {
+export const MatchStatsComponent: React.FC<MatchStatsProps> = ({ match }) => {
   const { points, matchMeta } = match;
 
   return (

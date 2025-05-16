@@ -19,12 +19,17 @@ const loginHandler = http.post(`${API_URL}/auth/login`, async ({ request }) => {
   const credentials = (await request.json()) as LoginCredentials;
   const { user, jwt } = authenticate(credentials);
 
+  console.log("loginHandler called!!!");
+  console.log("credentials", credentials);
+  console.log("user", user);
+  console.log("jwt", jwt);
+
   await new Promise((resolve) => setTimeout(resolve, 300));
 
-  return new HttpResponse(JSON.stringify({ user }), {
+  return new HttpResponse(JSON.stringify({ data: { user } }), {
     status: 200,
     headers: {
-      "Set-Cookie": `${AUTH_COOKIE}=${jwt}; Path=/; HttpOnly`,
+      "Set-Cookie": `${AUTH_COOKIE}=${jwt}; Path=/; SameSite=Lax;`,
       "Content-Type": "application/json",
     },
   });
@@ -36,7 +41,7 @@ const logoutHandler = http.post(`${API_URL}/auth/logout`, async () => {
   return new HttpResponse(JSON.stringify({ success: true }), {
     status: 200,
     headers: {
-      "Set-Cookie": `${AUTH_COOKIE}=; Path=/; HttpOnly; Max-Age=0`,
+      "Set-Cookie": `${AUTH_COOKIE}=; Path=/;  Max-Age=0`,
     },
   });
 });
@@ -46,7 +51,9 @@ const meHandler = http.get(`${API_URL}/auth/me`, async ({ request }) => {
 
   await new Promise((resolve) => setTimeout(resolve, 300));
 
-  return new HttpResponse(JSON.stringify(user), { status: 200 });
+  return new HttpResponse(JSON.stringify(user), {
+    status: 200,
+  });
 });
 
 const signupHandler = http.post(
@@ -61,7 +68,9 @@ const signupHandler = http.post(
 
     await new Promise((resolve) => setTimeout(resolve, 300));
 
-    return new HttpResponse(JSON.stringify({ user }), { status: 201 });
+    return new HttpResponse(JSON.stringify({ user }), {
+      status: 201,
+    });
   }
 );
 

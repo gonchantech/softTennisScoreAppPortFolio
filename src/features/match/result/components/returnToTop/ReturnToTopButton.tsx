@@ -3,21 +3,11 @@ import styles from "./ReturnToTopButton.module.css";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/button";
-import { Match } from "@/features/match";
-import { useSaveMatch } from "@/features/match/api/saveMatch";
 
-type ReturnToTopButtonProps = {
-  match: Match;
-};
-
-export const ReturnToTopButton: React.FC<ReturnToTopButtonProps> = ({
-  match,
-}) => {
-  const saveMatch = useSaveMatch();
+export const ReturnToTopButton: React.FC = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    saveMatch.submit({ match });
     router.push("/");
   };
 

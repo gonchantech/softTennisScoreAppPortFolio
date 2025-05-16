@@ -18,7 +18,7 @@ export const SignupForm: React.FC = () => {
   } = useForm<SignupFormData>();
   const router = useRouter();
   const onSuccess = () => {
-    router.push("/login");
+    router.push("/auth/login");
   };
 
   const signup = useSignup({ onSuccess });
@@ -30,7 +30,7 @@ export const SignupForm: React.FC = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <InputField
-        id="userId"
+        id="id"
         label="ID"
         type="text"
         {...register("id", { required: "IDは必須です" })}
@@ -40,7 +40,7 @@ export const SignupForm: React.FC = () => {
       />
 
       <InputField
-        id="userName"
+        id="name"
         label="名前"
         type="text"
         {...register("name", { required: "名前は必須です" })}

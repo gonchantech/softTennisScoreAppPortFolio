@@ -55,13 +55,15 @@ export const requireAuth = ({
   if (IS_TEST) {
     return getUser();
   } else {
-    const cookieHeader = req.headers.get("cookie");
-    const cookies = Object.fromEntries(
-      cookieHeader?.split(";").map((cookie) => cookie.trim().split("=")) || []
-    );
-    const encodedToken = cookies[AUTH_COOKIE];
+    console.log("req", req);
+    const authHeader = req.headers.get("Authorization");
+    let token: string | undefined;
 
-    if (encodedToken !== AUTH_TOKEN) {
+    if (authHeader?.startsWith("Bearer ")) {
+      token = authHeader.slice("Bearer ".length);
+    }
+
+    if (!token || token !== AUTH_TOKEN) {
       if (shouldThrow) {
         throw new Error("No authorization token provided!");
       }

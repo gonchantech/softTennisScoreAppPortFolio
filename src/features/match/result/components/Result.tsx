@@ -3,14 +3,21 @@ import styles from "./Result.module.css";
 import { useMatchMeta } from "@/context/match-meta";
 import { useMatchState } from "@/context/match-state";
 import { Match, PointHistory } from "@/features/match";
-import { MatchResult } from "./matchResult";
-import { MatchStats } from "./matchStats";
+import { MatchResultComponent } from "./matchResult/MatchResult";
+import { MatchStatsComponent } from "./matchStats/MatchStats";
 import { ReturnToTopButton } from "./returnToTop";
+import { useEffect } from "react";
+import { useSaveMatch } from "../../api/saveMatch";
 
 export function Result() {
   const { state: matchMeta } = useMatchMeta();
   const { state: matchState } = useMatchState();
   const { points } = matchState;
+  const saveMatch = useSaveMatch();
+
+  useEffect(() => {
+    saveMatch.submit({ match });
+  }, []);
 
   const match: Match = {
     matchMeta,
@@ -19,10 +26,10 @@ export function Result() {
 
   return (
     <div className={styles.container}>
-      <MatchResult match={match} />
-      <MatchStats match={match} />
+      <MatchResultComponent match={match} />
+      <MatchStatsComponent match={match} />
       <PointHistory forResult={true} />
-      <ReturnToTopButton match={match} />
+      <ReturnToTopButton />
     </div>
   );
 }

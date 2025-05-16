@@ -6,7 +6,9 @@ import { queryClient } from "@/lib/reactQuery";
 import { AuthUser, AuthData } from "@/features/auth";
 
 export const Login = async (data: AuthData): Promise<{ user: AuthUser }> => {
-  return apiClient.post("/auth/login", data);
+  return apiClient.post("/auth/login", data).then((res) => {
+    return res.data;
+  });
 };
 
 type UseLoginOptions = {

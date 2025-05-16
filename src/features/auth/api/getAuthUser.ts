@@ -1,11 +1,19 @@
+"use client";
+
 import { useQuery } from "@tanstack/react-query";
 
 import { apiClient } from "@/lib/apiClient";
 
 import { AuthUser } from "@/features/auth";
+import { IS_DEVELOPMENT } from "@/config/constants";
+import { getCookieValue } from "@/utils/getCookieValue";
+import { AUTH_COOKIE } from "@/testing/mocks/utils";
 
 export const getAuthUser = (): Promise<AuthUser> => {
-  return apiClient.get("./auth/me");
+  const options = IS_DEVELOPMENT
+    ? { headers: { Authorization: `Bearer ${getCookieValue(AUTH_COOKIE)}` } }
+    : { withCredentials: true };
+  return apiClient.get("/auth/me", options);
 };
 
 export const useUser = () => {

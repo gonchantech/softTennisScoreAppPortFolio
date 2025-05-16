@@ -3,13 +3,19 @@ import { useMutation } from "@tanstack/react-query";
 import { apiClient } from "@/lib/apiClient";
 import { queryClient } from "@/lib/reactQuery";
 import { Match, MatchResult } from "../types/match";
+import { IS_DEVELOPMENT } from "@/config/constants";
+import { getCookieValue } from "@/utils/getCookieValue";
+import { AUTH_COOKIE } from "@/testing/mocks/utils";
 
 type SaveMatchParams = {
   match: Match;
 };
 
 export const saveMatch = ({ match }: SaveMatchParams) => {
-  return apiClient.post("/matches", match);
+  const options = IS_DEVELOPMENT
+    ? { headers: { Authorization: `Bearer ${getCookieValue(AUTH_COOKIE)}` } }
+    : { withCredentials: true };
+  return apiClient.post("/matches", match, options);
 };
 
 type UseSaveMatchParams = {

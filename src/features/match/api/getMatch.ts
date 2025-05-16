@@ -1,13 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/lib/apiClient";
 import { MatchResult } from "../types/match";
+import { IS_DEVELOPMENT } from "@/config/constants";
+import { AUTH_COOKIE } from "@/testing/mocks/utils";
+import { getCookieValue } from "@/utils/getCookieValue";
 
 type GetMatchParams = {
   matchId: string;
 };
 
 export const getMatch = ({ matchId }: GetMatchParams): Promise<MatchResult> => {
-  return apiClient.get(`/matches/${matchId}`);
+  const options = IS_DEVELOPMENT
+    ? { headers: { Authorization: `Bearer ${getCookieValue(AUTH_COOKIE)}` } }
+    : { withCredentials: true };
+  return apiClient.get(`/matches/${matchId}`, options).then((res) => {
+    console.log("res", res);
+    return res.data;
+  });
 };
 
 export const useMatch = ({ matchId }: GetMatchParams) => {
