@@ -49,7 +49,7 @@ const meHandler = http.get(`${API_URL}/auth/me`, async ({ request }) => {
   return new HttpResponse(JSON.stringify(user), { status: 200 });
 });
 
-const signUpHandler = http.post(
+const signupHandler = http.post(
   `${API_URL}/auth/signup`,
   async ({ request }) => {
     const credentials = (await request.json()) as {
@@ -69,5 +69,5 @@ export const authHandlers = [
   loginHandler,
   logoutHandler,
   meHandler,
-  signUpHandler,
+  signupHandler,
 ];

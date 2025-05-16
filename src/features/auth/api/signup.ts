@@ -1,23 +1,21 @@
 import { useMutation } from "@tanstack/react-query";
 
 import { apiClient } from "@/lib/apiClient";
-import { queryClient } from "@/lib/reactQuery";
 
 import { AuthUser, AuthData } from "@/features/auth";
 
-export const Login = async (data: AuthData): Promise<{ user: AuthUser }> => {
-  return apiClient.post("/auth/login", data);
+export const Signup = async (data: AuthData): Promise<{ user: AuthUser }> => {
+  return apiClient.post("/auth/signup", data);
 };
 
-type UseLoginOptions = {
+type UseSignupOptions = {
   onSuccess?: (user: AuthUser) => void;
 };
 
-export const useLogin = ({ onSuccess }: UseLoginOptions) => {
+export const useSignup = ({ onSuccess }: UseSignupOptions) => {
   const { mutate: submit, isPending } = useMutation({
-    mutationFn: Login,
+    mutationFn: Signup,
     onSuccess: ({ user }) => {
-      queryClient.setQueryData(["auth-user"], user);
       onSuccess?.(user);
     },
     onError: (error) => {

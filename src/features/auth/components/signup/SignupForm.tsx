@@ -3,36 +3,28 @@
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/button/Button";
 import { InputField } from "@/components/form";
-import styles from "./LoginForm.module.css";
-import { useLogin } from "@/features/auth/api/login";
+import styles from "./SignupForm.module.css";
+import { useSignup } from "@/features/auth/api/signup";
 import { useRouter, useSearchParams } from "next/navigation";
+import { AuthData } from "@/features/auth";
 
-type LoginFormData = {
-  id: string;
-  name: string;
-  password: string;
-};
+type SignupFormData = AuthData;
 
-export const LoginForm: React.FC = () => {
+export const SignupForm: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginFormData>();
+  } = useForm<SignupFormData>();
   const router = useRouter();
-  const redirect = useSearchParams().get("redirect") as string;
   const onSuccess = () => {
-    if (redirect) {
-      router.push(redirect);
-    } else {
-      router.push("/");
-    }
+    router.push("/login");
   };
 
-  const login = useLogin({ onSuccess });
+  const signup = useSignup({ onSuccess });
 
-  const onSubmit = async (data: LoginFormData) => {
-    login.submit(data);
+  const onSubmit = async (data: SignupFormData) => {
+    signup.submit(data);
   };
 
   return (
@@ -74,7 +66,7 @@ export const LoginForm: React.FC = () => {
         isLoading={isSubmitting}
         fullWidth
       >
-        ログイン
+        新規登録
       </Button>
     </form>
   );

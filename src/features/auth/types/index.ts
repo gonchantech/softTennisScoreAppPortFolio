@@ -3,7 +3,7 @@ export type AuthUser = {
   name: string;
 };
 
-export type LoginData = {
+export type AuthData = {
   id: string;
   name: string;
   password: string;
