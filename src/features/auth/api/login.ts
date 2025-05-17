@@ -13,9 +13,10 @@ export const Login = async (data: AuthData): Promise<{ user: AuthUser }> => {
 
 type UseLoginOptions = {
   onSuccess?: (user: AuthUser) => void;
+  onError?: (error: Error) => void;
 };
 
-export const useLogin = ({ onSuccess }: UseLoginOptions) => {
+export const useLogin = ({ onSuccess, onError }: UseLoginOptions) => {
   const { mutate: submit, isPending } = useMutation({
     mutationFn: Login,
     onSuccess: ({ user }) => {
@@ -23,7 +24,7 @@ export const useLogin = ({ onSuccess }: UseLoginOptions) => {
       onSuccess?.(user);
     },
     onError: (error) => {
-      console.error("mutation error", error);
+      onError?.(error);
     },
   });
 

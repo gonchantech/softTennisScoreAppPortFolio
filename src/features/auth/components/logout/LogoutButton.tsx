@@ -3,10 +3,16 @@
 import { Button } from "@/components/button/Button";
 import { useLogout } from "@/features/auth/api/logout";
 
-export const LogoutButton: React.FC<{ onSuccess: () => void }> = ({
+type LogoutButtonProps = {
+  onSuccess: () => void;
+  onError: (error: Error) => void;
+};
+
+export const LogoutButton: React.FC<LogoutButtonProps> = ({
   onSuccess,
+  onError,
 }) => {
-  const { submit: logout, isPending } = useLogout({ onSuccess });
+  const { submit: logout, isPending } = useLogout({ onSuccess, onError });
 
   return (
     <Button

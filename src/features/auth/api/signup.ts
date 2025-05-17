@@ -10,16 +10,17 @@ export const Signup = async (data: AuthData): Promise<{ user: AuthUser }> => {
 
 type UseSignupOptions = {
   onSuccess?: (user: AuthUser) => void;
+  onError?: (error: Error) => void;
 };
 
-export const useSignup = ({ onSuccess }: UseSignupOptions) => {
+export const useSignup = ({ onSuccess, onError }: UseSignupOptions) => {
   const { mutate: submit, isPending } = useMutation({
     mutationFn: Signup,
     onSuccess: ({ user }) => {
       onSuccess?.(user);
     },
     onError: (error) => {
-      console.error("mutation error", error);
+      onError?.(error);
     },
   });
 

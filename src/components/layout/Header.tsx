@@ -7,10 +7,12 @@ import { LogoutButton } from "@/features/auth/components/logout/LogoutButton";
 import { Button } from "@/components/button/Button";
 import { useRouter } from "next/navigation";
 import { Stack } from "../stack/";
+import { useNotification } from "@/context/notifications";
 
 export const Header: React.FC = () => {
   const { data: user, isLoading } = useUser();
   const router = useRouter();
+  const { showNotification } = useNotification();
 
   const onTopClick = () => {
     router.push("/");
@@ -25,7 +27,20 @@ export const Header: React.FC = () => {
   };
 
   const onLogoutSuccess = () => {
+    showNotification({
+      type: "success",
+      message: "ログアウトしました",
+      title: "ログアウト成功",
+    });
     router.push("/");
+  };
+
+  const onLogoutError = () => {
+    showNotification({
+      type: "error",
+      message: "ログアウトに失敗しました",
+      title: "ログアウト失敗",
+    });
   };
 
   const onMatchHistoryClick = () => {
@@ -56,7 +71,10 @@ export const Header: React.FC = () => {
               >
                 過去の試合
               </Button>
-              <LogoutButton onSuccess={onLogoutSuccess} />
+              <LogoutButton
+                onSuccess={onLogoutSuccess}
+                onError={onLogoutError}
+              />
             </>
           ) : (
             <>

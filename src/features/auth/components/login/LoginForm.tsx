@@ -14,16 +14,17 @@ type LoginFormData = {
 
 interface LoginFormProps {
   onSuccess: () => void;
+  onError: (error: Error) => void;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onError }) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>();
 
-  const login = useLogin({ onSuccess });
+  const login = useLogin({ onSuccess, onError });
 
   const onSubmit = async (data: LoginFormData) => {
     login.submit(data);

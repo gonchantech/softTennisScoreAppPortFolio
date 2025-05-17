@@ -9,14 +9,18 @@ export const logout = () => {
 
 type UseLogoutOptions = {
   onSuccess?: () => void;
+  onError?: (error: Error) => void;
 };
 
-export const useLogout = ({ onSuccess }: UseLogoutOptions) => {
+export const useLogout = ({ onSuccess, onError }: UseLogoutOptions) => {
   const { mutate: submit, isPending } = useMutation({
     mutationFn: logout,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth-user"] });
       onSuccess?.();
+    },
+    onError: (error) => {
+      onError?.(error);
     },
   });
 

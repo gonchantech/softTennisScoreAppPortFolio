@@ -12,16 +12,20 @@ type SignupFormData = AuthData;
 
 interface SignupFormProps {
   onSuccess: () => void;
+  onError: (error: Error) => void;
 }
 
-export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
+export const SignupForm: React.FC<SignupFormProps> = ({
+  onSuccess,
+  onError,
+}) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<SignupFormData>();
 
-  const signup = useSignup({ onSuccess });
+  const signup = useSignup({ onSuccess, onError });
 
   const onSubmit = async (data: SignupFormData) => {
     signup.submit(data);
