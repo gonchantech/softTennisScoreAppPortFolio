@@ -4,7 +4,7 @@ export function calculatePlayerStats(
   points: PointData[],
   macthMeta: MatchMeta
 ): PlayerStat[] {
-  const playerStats: PlayerStat[] = [
+  const initialStats: PlayerStat[] = [
     {
       player: "A1",
       name: macthMeta.playerA1Name,
@@ -39,9 +39,9 @@ export function calculatePlayerStats(
     },
   ];
 
-  points.forEach((point) => {
-    const playerStat = playerStats.find((p) => p.player === point.player);
-    if (!playerStat) return;
+  return points.reduce((stats, point) => {
+    const playerStat = stats.find((p) => p.player === point.player);
+    if (!playerStat) return stats;
 
     if (point.errorCause) {
       playerStat.errors += 1;
@@ -50,9 +50,9 @@ export function calculatePlayerStats(
       playerStat.pointsWon += 1;
       playerStat.playTypeBreakdown[point.playType] += 1;
     }
-  });
 
-  return playerStats;
+    return stats;
+  }, initialStats);
 }
 
 function initPlayTypeBreakdown(): Record<PlayType, number> {

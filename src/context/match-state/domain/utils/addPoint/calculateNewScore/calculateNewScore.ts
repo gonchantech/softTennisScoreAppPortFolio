@@ -1,11 +1,17 @@
 import { RawPointInput } from "@/features/match";
 import { getIsTeamAPoint } from "@/utils/getIsTeamAPoint";
 
-export function calculateNewScore(
-  prevTeamAScore: number,
-  prevTeamBScore: number,
-  pointData: RawPointInput
-): {
+type CalculateNewScoreProps = {
+  prevTeamAScore: number;
+  prevTeamBScore: number;
+  pointData: RawPointInput;
+};
+
+export function calculateNewScore({
+  prevTeamAScore,
+  prevTeamBScore,
+  pointData,
+}: CalculateNewScoreProps): {
   newTeamAScore: number;
   newTeamBScore: number;
 } {

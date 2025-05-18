@@ -1,14 +1,24 @@
-import { MatchState, RawPointInput } from "@/features/match";
+import { MatchState, PointData, RawPointInput } from "@/features/match";
 
-export function createNewPointEntry(
-  prevState: MatchState,
-  pointData: RawPointInput,
-  teamAGames: number,
-  teamBGames: number,
-  teamAScore: number,
-  teamBScore: number,
-  gameNumber: number
-) {
+type CreateNewPointEntryProps = {
+  prevState: MatchState;
+  pointData: RawPointInput;
+  teamAGames: number;
+  teamBGames: number;
+  teamAScore: number;
+  teamBScore: number;
+  gameNumber: number;
+};
+
+export function createNewPointEntry({
+  prevState,
+  pointData,
+  teamAGames,
+  teamBGames,
+  teamAScore,
+  teamBScore,
+  gameNumber,
+}: CreateNewPointEntryProps): PointData[] {
   return [
     ...prevState.points,
     {

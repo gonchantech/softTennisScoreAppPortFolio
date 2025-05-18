@@ -13,18 +13,18 @@ export const matchStateReducer = (
       return action.payload;
     case "ADD_POINT": {
       if (state.currentGame === action.payload.matchLength) {
-        return FinalGame.addPoint(
-          state,
-          action.payload.pointData,
-          action.payload.matchLength,
-          action.payload.initialServer
-        );
+        return FinalGame.addPoint({
+          prevState: state,
+          pointData: action.payload.pointData,
+          matchLength: action.payload.matchLength,
+          initialServer: action.payload.initialServer,
+        });
       } else {
-        return RegularGame.addPoint(
-          state,
-          action.payload.pointData,
-          action.payload.matchLength
-        );
+        return RegularGame.addPoint({
+          prevState: state,
+          pointData: action.payload.pointData,
+          matchLength: action.payload.matchLength,
+        });
       }
     }
     case "REMOVE_LATEST_POINT": {

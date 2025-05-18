@@ -5,7 +5,7 @@ import { checkIsMatchComplete } from "./checkIsMatchComplete";
 import { handleGameComplete } from "./handleGame/handleGameComplete";
 import { handleGameInProgress } from "./handleGame/handleGameInProgress";
 
-export function addPoint(
+type AddPointProps = {
   calculateNewServerWhenGameNotFinished: (
     prevServesLeft: number,
     prevCurrentServerTeam: "A" | "B",
@@ -13,52 +13,60 @@ export function addPoint(
   ) => {
     newCurrentServer: Player;
     newServesLeft: number;
-  },
-  pointLength: 4 | 7,
-  prevState: MatchState,
-  pointData: RawPointInput,
-  matchLength: number
-): MatchState {
-  const { newTeamAScore, newTeamBScore } = calculateNewScore(
-    prevState.teamAScore,
-    prevState.teamBScore,
-    pointData
-  );
+  };
+  pointLength: 4 | 7;
+  prevState: MatchState;
+  pointData: RawPointInput;
+  matchLength: number;
+};
+
+export function addPoint({
+  calculateNewServerWhenGameNotFinished,
+  pointLength,
+  prevState,
+  pointData,
+  matchLength,
+}: AddPointProps): MatchState {
+  const { newTeamAScore, newTeamBScore } = calculateNewScore({
+    prevTeamAScore: prevState.teamAScore,
+    prevTeamBScore: prevState.teamBScore,
+    pointData,
+  });
 
   const { newTeamAGames, newTeamBGames, newIsGameComplete } =
-    checkIsGameComplete(
+    checkIsGameComplete({
       pointLength,
-      prevState.isDeuce,
-      prevState.isAdvantage,
-      prevState.teamAGames,
-      prevState.teamBGames,
+      prevIsDeuce: prevState.isDeuce,
+      prevIsAdvantage: prevState.isAdvantage,
+      prevTeamAGames: prevState.teamAGames,
+      prevTeamBGames: prevState.teamBGames,
       newTeamAScore,
-      newTeamBScore
-    );
+      newTeamBScore,
+    });
 
-  const { newIsMatchComplete } = checkIsMatchComplete(
+  const { newIsMatchComplete } = checkIsMatchComplete({
     newIsGameComplete,
     newTeamAGames,
     newTeamBGames,
-    matchLength
-  );
+    matchLength,
+  });
 
   if (newIsGameComplete) {
-    return handleGameComplete(
+    return handleGameComplete({
       prevState,
       pointData,
       newTeamAGames,
       newTeamBGames,
-      newIsMatchComplete
-    );
+      newIsMatchComplete,
+    });
   } else {
-    return handleGameInProgress(
+    return handleGameInProgress({
       calculateNewServerWhenGameNotFinished,
       pointLength,
       prevState,
       pointData,
       newTeamAScore,
-      newTeamBScore
-    );
+      newTeamBScore,
+    });
   }
 }

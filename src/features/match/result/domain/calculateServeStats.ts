@@ -4,7 +4,7 @@ export function calculateServeStats(
   points: PointData[],
   matchMeta: MatchMeta
 ): ServeStat[] {
-  const serveStats: ServeStat[] = [
+  const initialStats: ServeStat[] = [
     {
       player: "A1",
       name: matchMeta.playerA1Name,
@@ -34,24 +34,24 @@ export function calculateServeStats(
       successRate: 0,
     },
   ];
-  points.forEach((point) => {
-    const serverStat = serveStats.find((s) => s.player === point.server);
 
-    if (serverStat) {
-      serverStat.firstServeAttempts += 1;
-      if (point.firstServeIn) {
-        serverStat.firstServeIn += 1;
-      }
+  const statsWithAttempts = points.reduce((stats, point) => {
+    const serverStat = stats.find((s) => s.player === point.server);
+    if (!serverStat) return stats;
+
+    serverStat.firstServeAttempts += 1;
+    if (point.firstServeIn) {
+      serverStat.firstServeIn += 1;
     }
-  });
 
-  serveStats.forEach((stat) => {
-    if (stat.firstServeAttempts > 0) {
-      stat.successRate = Math.round(
-        (stat.firstServeIn / stat.firstServeAttempts) * 100
-      );
-    }
-  });
+    return stats;
+  }, initialStats);
 
-  return serveStats;
+  return statsWithAttempts.map((stat) => ({
+    ...stat,
+    successRate:
+      stat.firstServeAttempts > 0
+        ? Math.round((stat.firstServeIn / stat.firstServeAttempts) * 100)
+        : 0,
+  }));
 }

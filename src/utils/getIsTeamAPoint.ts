@@ -1,4 +1,4 @@
-import { PointData, RawPointInput } from "@/features/scoring/match/types/point";
+import { PointData, RawPointInput } from "@/features/match";
 
 export const getIsTeamAPoint = (point: PointData | RawPointInput) => {
   const lastShotTeam = point.player.startsWith("A") ? "A" : "B";

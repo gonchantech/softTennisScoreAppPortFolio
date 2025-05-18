@@ -3,7 +3,7 @@ import { checkIsDeuceWhenGameNotFinished } from "./checkIsDeuceWhenGameNotFinish
 import { checkIsAdvantageWhenGameNotFinished } from "./checkIsAdvantage";
 import { createNewPointEntry } from "../createNewPointEntry";
 
-export function handleGameInProgress(
+export type HandleGameInProgressProps = {
   calculateNewServerWhenGameNotFinished: (
     prevServesLeft: number,
     prevCurrentServerTeam: "A" | "B",
@@ -11,13 +11,21 @@ export function handleGameInProgress(
   ) => {
     newCurrentServer: Player;
     newServesLeft: number;
-  },
-  pointLength: 4 | 7,
-  prevState: MatchState,
-  pointData: RawPointInput,
-  newTeamAScore: number,
-  newTeamBScore: number
-): MatchState {
+  };
+  pointLength: 4 | 7;
+  prevState: MatchState;
+  pointData: RawPointInput;
+  newTeamAScore: number;
+  newTeamBScore: number;
+};
+export function handleGameInProgress({
+  calculateNewServerWhenGameNotFinished,
+  prevState,
+  pointData,
+  newTeamAScore,
+  newTeamBScore,
+  pointLength,
+}: HandleGameInProgressProps): MatchState {
   const { newCurrentServer, newServesLeft } =
     calculateNewServerWhenGameNotFinished(
       prevState.servesLeft,
@@ -25,28 +33,28 @@ export function handleGameInProgress(
       prevState.currentServer
     );
 
-  const { newIsDeuce } = checkIsDeuceWhenGameNotFinished(
+  const { newIsDeuce } = checkIsDeuceWhenGameNotFinished({
     pointLength,
     newTeamAScore,
-    newTeamBScore
-  );
+    newTeamBScore,
+  });
 
   const { newIsAdvantage, newAdvantageTeam } =
-    checkIsAdvantageWhenGameNotFinished(
-      prevState.isDeuce,
+    checkIsAdvantageWhenGameNotFinished({
+      isPrevDeuce: prevState.isDeuce,
       newTeamAScore,
-      newTeamBScore
-    );
+      newTeamBScore,
+    });
 
-  const newPoints = createNewPointEntry(
+  const newPoints = createNewPointEntry({
     prevState,
     pointData,
-    prevState.teamAGames,
-    prevState.teamBGames,
-    newTeamAScore,
-    newTeamBScore,
-    prevState.currentGame
-  );
+    teamAGames: prevState.teamAGames,
+    teamBGames: prevState.teamBGames,
+    teamAScore: newTeamAScore,
+    teamBScore: newTeamBScore,
+    gameNumber: prevState.currentGame,
+  });
 
   return {
     teamAScore: newTeamAScore,
@@ -58,7 +66,7 @@ export function handleGameInProgress(
     servesLeft: newServesLeft,
     isDeuce: newIsDeuce,
     isAdvantage: newIsAdvantage,
-    advantageTeam: newAdvantageTeam,
+    advantageTeam: newAdvantageTeam as "A" | "B" | undefined,
     currentGame: prevState.currentGame,
     points: newPoints,
     isMatchComplete: prevState.isMatchComplete,

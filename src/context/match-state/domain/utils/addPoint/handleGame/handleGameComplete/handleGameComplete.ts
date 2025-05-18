@@ -2,13 +2,21 @@ import { MatchState, RawPointInput } from "@/features/match";
 import { changeStateAfterGameComplete } from "./changeStateAfterGameComplete";
 import { createNewPointEntry } from "../createNewPointEntry";
 
-export function handleGameComplete(
-  prevState: MatchState,
-  pointData: RawPointInput,
-  newTeamAGames: number,
-  newTeamBGames: number,
-  newIsMatchComplete: boolean
-): MatchState {
+type HandleGameCompleteProps = {
+  prevState: MatchState;
+  pointData: RawPointInput;
+  newTeamAGames: number;
+  newTeamBGames: number;
+  newIsMatchComplete: boolean;
+};
+
+export function handleGameComplete({
+  prevState,
+  pointData,
+  newTeamAGames,
+  newTeamBGames,
+  newIsMatchComplete,
+}: HandleGameCompleteProps): MatchState {
   const {
     newCurrentGame,
     newTeamAScore,
@@ -24,15 +32,15 @@ export function handleGameComplete(
     prevState.currentServerTeam
   );
 
-  const newPoints = createNewPointEntry(
+  const newPoints = createNewPointEntry({
     prevState,
     pointData,
-    newTeamAGames,
-    newTeamBGames,
-    newTeamAScore,
-    newTeamBScore,
-    newCurrentGame
-  );
+    teamAGames: newTeamAGames,
+    teamBGames: newTeamBGames,
+    teamAScore: newTeamAScore,
+    teamBScore: newTeamBScore,
+    gameNumber: newCurrentGame,
+  });
 
   return {
     teamAScore: newTeamAScore,

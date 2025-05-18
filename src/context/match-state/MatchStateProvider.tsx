@@ -29,7 +29,6 @@ export const MatchStateProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.setItem("matchState", JSON.stringify(state));
   }, [state]);
 
-  //TODO これの命名よくない。useStateのsetみたいになる。
   const setInitialStateFromCache = (matchState: MatchState) => {
     dispatch({ type: "SET_INITIAL_STATE_FROM_CACHE", payload: matchState });
   };

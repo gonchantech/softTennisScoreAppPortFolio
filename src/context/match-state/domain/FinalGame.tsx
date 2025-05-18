@@ -1,22 +1,30 @@
 import { RawPointInput, MatchState, Player } from "@/features/match";
 import { addPoint } from "./utils/addPoint/addPoint";
 
+type FinalGameAddPointProps = {
+  prevState: MatchState;
+  pointData: RawPointInput;
+  matchLength: number;
+  initialServer: Player;
+};
+
 export class FinalGame {
   private static readonly pointLength = 7;
 
-  public static addPoint(
-    prevState: MatchState,
-    pointData: RawPointInput,
-    matchLength: number,
-    initialServer: Player
-  ): MatchState {
-    return addPoint(
-      this.calculateNewServerWhenGameNotFinished.bind(null, initialServer),
-      this.pointLength,
+  public static addPoint({
+    prevState,
+    pointData,
+    matchLength,
+    initialServer,
+  }: FinalGameAddPointProps): MatchState {
+    return addPoint({
+      calculateNewServerWhenGameNotFinished:
+        this.calculateNewServerWhenGameNotFinished.bind(null, initialServer),
+      pointLength: this.pointLength,
       prevState,
       pointData,
-      matchLength
-    );
+      matchLength,
+    });
   }
 
   private static calculateNewServerWhenGameNotFinished(

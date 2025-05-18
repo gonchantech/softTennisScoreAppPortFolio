@@ -1,11 +1,14 @@
-export function checkIsAdvantageWhenGameNotFinished(
-  isPrevDeuce: boolean,
-  newTeamAScore: number,
-  newTeamBScore: number
-): {
-  newIsAdvantage: boolean;
-  newAdvantageTeam: "A" | "B" | undefined;
-} {
+type CheckIsAdvantageWhenGameNotFinishedProps = {
+  isPrevDeuce: boolean;
+  newTeamAScore: number;
+  newTeamBScore: number;
+};
+
+export function checkIsAdvantageWhenGameNotFinished({
+  isPrevDeuce,
+  newTeamAScore,
+  newTeamBScore,
+}: CheckIsAdvantageWhenGameNotFinishedProps) {
   if (isPrevDeuce) {
     if (newTeamAScore > newTeamBScore) {
       return { newIsAdvantage: true, newAdvantageTeam: "A" };

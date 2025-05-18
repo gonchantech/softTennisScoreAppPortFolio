@@ -1,9 +1,16 @@
-export function checkIsMatchComplete(
-  newIsGameComplete: boolean,
-  newTeamAGames: number,
-  newTeamBGames: number,
-  matchLength: number
-): { newIsMatchComplete: boolean } {
+type CheckIsMatchCompleteProps = {
+  newIsGameComplete: boolean;
+  newTeamAGames: number;
+  newTeamBGames: number;
+  matchLength: number;
+};
+
+export function checkIsMatchComplete({
+  newIsGameComplete,
+  newTeamAGames,
+  newTeamBGames,
+  matchLength,
+}: CheckIsMatchCompleteProps): { newIsMatchComplete: boolean } {
   if (!newIsGameComplete) {
     return { newIsMatchComplete: false };
   }

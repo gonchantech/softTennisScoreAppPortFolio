@@ -1,16 +1,22 @@
-export function checkIsGameComplete(
-  pointLength: 4 | 7,
-  prevIsDeuce: boolean,
-  prevIsAdvantage: boolean,
-  prevTeamAGames: number,
-  prevTeamBGames: number,
-  newTeamAScore: number,
-  newTeamBScore: number
-): {
-  newTeamAGames: number;
-  newTeamBGames: number;
-  newIsGameComplete: boolean;
-} {
+type CheckIsGameCompleteProps = {
+  pointLength: 4 | 7;
+  prevIsDeuce: boolean;
+  prevIsAdvantage: boolean;
+  prevTeamAGames: number;
+  prevTeamBGames: number;
+  newTeamAScore: number;
+  newTeamBScore: number;
+};
+
+export function checkIsGameComplete({
+  pointLength,
+  prevIsDeuce,
+  prevIsAdvantage,
+  prevTeamAGames,
+  prevTeamBGames,
+  newTeamAScore,
+  newTeamBScore,
+}: CheckIsGameCompleteProps) {
   if (
     (newTeamAScore === pointLength && !prevIsDeuce) ||
     (prevIsAdvantage && newTeamAScore > newTeamBScore)
