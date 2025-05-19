@@ -19,6 +19,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   size = "md",
   required = false,
   className,
+  id,
   ...props
 }) => {
   const sizeClass = {
@@ -39,19 +40,20 @@ export const InputField: React.FC<InputFieldProps> = ({
   return (
     <div className={styles.inputWrapper}>
       {label && (
-        <label className={styles.label}>
+        <label htmlFor={id} className={styles.label}>
           {label}
           {required && <span className={styles.required}>*</span>}
         </label>
       )}
       <input
+        id={id}
         className={inputClasses}
         aria-invalid={!!error}
-        aria-describedby={error ? `${props.id}-error` : undefined}
+        aria-describedby={error ? `${id}-error` : undefined}
         {...props}
       />
       {error && (
-        <div id={`${props.id}-error`} className={styles.errorText}>
+        <div id={`${id}-error`} className={styles.errorText}>
           {error}
         </div>
       )}
