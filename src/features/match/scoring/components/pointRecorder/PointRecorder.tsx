@@ -13,16 +13,32 @@ import {
   Player,
   PlayType,
   playTypeDescriptions,
+  MatchMeta,
+  MatchState,
+  PointData,
+  MatchLength,
+  RawPointInput,
 } from "@/features/match";
 
 interface PointRecorderProps {
   setShowErrorModal: (show: boolean) => void;
   setShowCompleteModal: (show: boolean) => void;
+  matchMeta: MatchMeta;
+  matchState: MatchState;
+  addPoint: (
+    pointData: RawPointInput,
+    matchLength: MatchLength,
+    initialServer: Player
+  ) => void;
 }
 
-export const PointRecorder: React.FC<PointRecorderProps> = (props) => {
-  const { state: matchMeta } = useMatchMeta();
-  const { state: matchState, addPoint } = useMatchState();
+export const PointRecorder: React.FC<PointRecorderProps> = ({
+  matchMeta,
+  matchState,
+  addPoint,
+  setShowErrorModal,
+  setShowCompleteModal,
+}) => {
   const { playerA1Name, playerA2Name, playerB1Name, playerB2Name } = matchMeta;
 
   // Form state
@@ -51,7 +67,7 @@ export const PointRecorder: React.FC<PointRecorderProps> = (props) => {
     e.preventDefault();
 
     if (matchState.isMatchComplete) {
-      props.setShowErrorModal(true);
+      setShowErrorModal(true);
       return;
     }
 
@@ -80,7 +96,7 @@ export const PointRecorder: React.FC<PointRecorderProps> = (props) => {
 
   useEffect(() => {
     if (matchState.isMatchComplete) {
-      props.setShowCompleteModal(true);
+      setShowCompleteModal(true);
     }
   }, [matchState.isMatchComplete]);
 

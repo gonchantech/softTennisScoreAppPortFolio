@@ -3,10 +3,18 @@ import styles from "./ScoreTracker.module.css";
 import React from "react";
 import { useMatchState } from "@/context/match-state/useMatchState";
 import { useMatchMeta } from "@/context/match-meta/useMatchMeta";
+import { MatchMeta } from "@/features/match/match-setup/types";
+import { MatchState } from "../../types";
 
-export const ScoreTracker: React.FC = () => {
-  const { state: matchState } = useMatchState();
-  const { state: matchMeta } = useMatchMeta();
+type ScoreTrackerProps = {
+  matchMeta: MatchMeta;
+  matchState: MatchState;
+};
+
+export const ScoreTracker: React.FC<ScoreTrackerProps> = ({
+  matchMeta,
+  matchState,
+}) => {
   const {
     teamAScore,
     teamBScore,

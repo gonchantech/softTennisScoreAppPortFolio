@@ -1,22 +1,24 @@
 "use client";
 import styles from "./PointHistory.module.css";
 import React, { useMemo } from "react";
-import { useMatchMeta } from "@/context/match-meta/useMatchMeta";
 import { useMatchState } from "@/context/match-state/useMatchState";
 import { getIsTeamAPoint } from "@/utils/getIsTeamAPoint";
 import { Button } from "@/components/button";
 import { PointInfo } from "./pointInfo";
+import { Match } from "@/features/match/types";
 
 interface PointHistoryProps {
   forResult: boolean;
+  match: Match;
 }
 
 export const PointHistory: React.FC<PointHistoryProps> = (props) => {
-  const { forResult } = props;
-  const { state: matchMeta } = useMatchMeta();
-  const { state: matchState, removeLatestPoint } = useMatchState();
-  const { playerA1Name, playerA2Name, playerB1Name, playerB2Name } = matchMeta;
-  const { points } = matchState;
+  const { forResult, match } = props;
+  const { removeLatestPoint } = useMatchState();
+
+  const { playerA1Name, playerA2Name, playerB1Name, playerB2Name } =
+    match.matchMeta;
+  const { points } = match;
 
   const reversedPoints = useMemo(() => [...points].reverse(), [points]);
 
@@ -29,7 +31,7 @@ export const PointHistory: React.FC<PointHistoryProps> = (props) => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="point-history">
       <div className={styles.header}>
         <span>ポイント履歴</span>
         {!forResult && (

@@ -1,42 +1,57 @@
 import LoginPage from "@/app/auth/login/page";
-import { appRender, screen, userEvent, waitFor } from "@/testing/testUtils";
+import {
+  appRender,
+  screen,
+  userEvent,
+  waitFor,
+  act,
+} from "@/testing/testUtils";
 
 const router = {
   replace: jest.fn(),
   query: {},
 };
 
-jest.mock("next/router", () => ({
+jest.mock("next/navigation", () => ({
   useRouter: () => router,
+  useSearchParams: () => {
+    return {
+      get: (key: string) => {
+        if (key === "redirect") return "";
+        return null;
+      },
+    };
+  },
 }));
 
 describe("Login Page", () => {
   it("should login the user into the dashboard", async () => {
-    await appRender(<LoginPage />);
+    await act(async () => appRender(<LoginPage />));
 
-    const idInput = screen.getByLabelText(/ID/i);
+    screen.debug();
 
-    const nameInput = screen.getByLabelText(/名前/i);
+    const idInput = screen.getByLabelText("ID");
 
-    const passwordInput = screen.getByLabelText(/password/i);
+    const nameInput = screen.getByLabelText("名前");
+
+    const passwordInput = screen.getByLabelText("パスワード");
 
     const submitButton = screen.getByRole("button", {
-      name: /log in/i,
+      name: /ログイン/i,
     });
 
     const credentials = {
-      id: "user1",
-      name: "user1",
+      id: "1",
+      name: "田中",
       password: "password",
     };
 
-    userEvent.type(idInput, credentials.id);
-
-    userEvent.type(nameInput, credentials.name);
-
-    userEvent.type(passwordInput, credentials.password);
-
-    userEvent.click(submitButton);
+    await act(async () => {
+      await userEvent.type(idInput, credentials.id);
+      await userEvent.type(nameInput, credentials.name);
+      await userEvent.type(passwordInput, credentials.password);
+      await userEvent.click(submitButton);
+    });
 
     await waitFor(() => expect(router.replace).toHaveBeenCalledWith("/"));
   });

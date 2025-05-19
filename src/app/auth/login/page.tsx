@@ -16,10 +16,10 @@ const LoginPage = () => {
       message: "ログインに成功しました",
       title: "ログイン成功",
     });
-    if (redirect) {
-      router.push(redirect);
+    if (redirect && redirect !== "") {
+      router.replace(redirect);
     } else {
-      router.push("/");
+      router.replace("/");
     }
   };
 

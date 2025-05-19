@@ -10,7 +10,7 @@ import { Button } from "@/components/button/Button";
 import { useMatch } from "@/features/match/api/getMatch";
 import { Stack } from "@/components/stack";
 
-const MatchHistoryPage = () => {
+const MatchResultPage = () => {
   const { matchId } = useParams();
   const router = useRouter();
   const { data } = useMatch({ matchId: matchId as string });
@@ -34,7 +34,7 @@ const MatchHistoryPage = () => {
     <Stack direction="vertical" gap="md">
       <MatchResultComponent match={match} />
       <MatchStatsComponent match={match} />
-      <PointHistory forResult={true} />
+      <PointHistory forResult={true} match={match} />
       <Button color="gray" size="md" onClick={handleClick} fullWidth>
         一覧へ戻る
       </Button>
@@ -42,4 +42,4 @@ const MatchHistoryPage = () => {
   );
 };
 
-export default MatchHistoryPage;
+export default MatchResultPage;

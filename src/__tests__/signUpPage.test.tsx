@@ -1,27 +1,29 @@
 import SignUpPage from "@/app/auth/signup/page";
-import { appRender, screen, userEvent, waitFor } from "@/testing/testUtils";
+import {
+  act,
+  appRender,
+  screen,
+  userEvent,
+  waitFor,
+} from "@/testing/testUtils";
 
 const router = {
   replace: jest.fn(),
-  query: {},
 };
 
-jest.mock("next/router", () => ({
+jest.mock("next/navigation", () => ({
   useRouter: () => router,
 }));
 
 describe("SignUp Page", () => {
   it("should sign up the user into the dashboard", async () => {
-    await appRender(<SignUpPage />);
+    await act(async () => appRender(<SignUpPage />));
 
     const idInput = screen.getByLabelText(/ID/i);
-
     const nameInput = screen.getByLabelText(/名前/i);
-
-    const passwordInput = screen.getByLabelText(/password/i);
-
+    const passwordInput = screen.getByLabelText(/パスワード/i);
     const submitButton = screen.getByRole("button", {
-      name: /log in/i,
+      name: /新規登録/i,
     });
 
     const credentials = {
@@ -30,13 +32,12 @@ describe("SignUp Page", () => {
       password: "password",
     };
 
-    userEvent.type(idInput, credentials.id);
-
-    userEvent.type(nameInput, credentials.name);
-
-    userEvent.type(passwordInput, credentials.password);
-
-    userEvent.click(submitButton);
+    await act(async () => {
+      await userEvent.type(idInput, credentials.id);
+      await userEvent.type(nameInput, credentials.name);
+      await userEvent.type(passwordInput, credentials.password);
+      await userEvent.click(submitButton);
+    });
 
     await waitFor(() =>
       expect(router.replace).toHaveBeenCalledWith("/auth/login")

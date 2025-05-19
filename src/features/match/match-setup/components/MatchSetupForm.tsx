@@ -8,7 +8,6 @@ import { Player, MatchLength } from "@/features/match";
 import { MatchFormatSelector } from "./matchFormatSelector";
 import { ServerSelector } from "./serverSelector";
 import { TeamSetup } from "./teamSetup";
-import { Container } from "@/components/container/Container";
 
 export type MatchSetupProps = {
   onSubmit: () => void;

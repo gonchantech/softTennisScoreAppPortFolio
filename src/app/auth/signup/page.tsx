@@ -14,7 +14,7 @@ const SignupPage = () => {
       message: "サインアップに成功しました",
       title: "サインアップ成功",
     });
-    router.push("/auth/login");
+    router.replace("/auth/login");
   };
 
   const onError = () => {
