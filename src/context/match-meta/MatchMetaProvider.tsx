@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useReducer } from "react";
-import { MatchMeta } from "@/features/match";
+import { MatchMeta } from "@/features/match/match-setup/types";
 import { MatchMetaContext } from "./MatchMetaContext";
 import { defaultMatchMeta } from "./constants/defaultMatchMeta";
 import { matchMetaReducer } from "./matchMetaReducer";

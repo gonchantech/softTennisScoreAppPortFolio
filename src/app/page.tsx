@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { MatchSetupForm } from "@/features/match/match-setup/components/MatchSetupForm";
+import { MatchSetupForm } from "@/features/match";
 
 export default function MatchSetupPage() {
   const router = useRouter();

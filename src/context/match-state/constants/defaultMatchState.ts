@@ -1,4 +1,4 @@
-import { MatchState } from "@/features/match";
+import { MatchState } from "@/features/match/scoring/types/matchState";
 
 export const defaultMatchState: MatchState = {
   teamAScore: 0,

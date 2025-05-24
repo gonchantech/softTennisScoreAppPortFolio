@@ -1,5 +1,5 @@
 import { getIsTeamAPoint } from "../getIsTeamAPoint";
-import { PointData, RawPointInput } from "@/features/match";
+import { RawPointInput } from "@/features/match";
 
 describe("getIsTeamAPoint", () => {
   it("should return true when A team player scores without error", () => {

@@ -2,8 +2,7 @@
 
 import React, { useEffect } from "react";
 import styles from "./Header.module.css";
-import { useUser } from "@/features/auth";
-import { LogoutButton } from "@/features/auth/components/logout/LogoutButton";
+import { useUser, LogoutButton } from "@/features/auth";
 import { Button } from "@/components/button/Button";
 import { useRouter } from "next/navigation";
 import { Stack } from "../stack/";

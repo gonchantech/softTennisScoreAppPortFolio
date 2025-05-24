@@ -1,6 +1,6 @@
 "use client";
 
-import { LoginForm } from "@/features/auth/components/login";
+import { LoginForm } from "@/features/auth";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Container } from "@/components/container/Container";
 import { useNotification } from "@/context/notifications";

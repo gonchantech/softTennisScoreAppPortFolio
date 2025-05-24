@@ -1,4 +1,6 @@
-import { MatchState, RawPointInput, Player } from "@/features/match";
+import { MatchState } from "@/features/match/scoring/types/matchState";
+import { RawPointInput } from "@/features/match/scoring/types/point";
+import { Player } from "@/features/match/types/player";
 import { addPoint } from "./utils/addPoint/addPoint";
 
 type RegularGameAddPointProps = {

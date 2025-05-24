@@ -1,4 +1,4 @@
-import { MatchMeta } from "@/features/match";
+import { MatchMeta } from "@/features/match/match-setup/types";
 
 export type MatchMetaAction =
   | { type: "SET_MATCH_META_FROM_CACHE"; payload: MatchMeta }

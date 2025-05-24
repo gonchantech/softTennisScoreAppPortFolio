@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { MatchMeta } from "@/features/match";
+import { MatchMeta } from "@/features/match/match-setup/types";
 import { MatchMetaAction } from "./types/MatchMetaAction";
 import { defaultMatchMeta } from "./constants/defaultMatchMeta";
 

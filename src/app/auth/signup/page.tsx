@@ -1,5 +1,5 @@
 "use client";
-import { SignupForm } from "@/features/auth/components/signup";
+import { SignupForm } from "@/features/auth";
 import { useRouter } from "next/navigation";
 import { Container } from "@/components/container/Container";
 import { useNotification } from "@/context/notifications";

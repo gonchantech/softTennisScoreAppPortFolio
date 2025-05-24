@@ -1,5 +1,5 @@
 import { renderHook, act } from "@testing-library/react";
-import { MatchState, RawPointInput } from "@/features/match";
+import { RawPointInput } from "@/features/match/scoring/types/point";
 import { useMatchState } from "../useMatchState";
 import { defaultMatchState } from "../constants/defaultMatchState";
 import { MatchStateProvider } from "../MatchStateProvider";

@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import styles from "./layout.module.css";
 import "../../globals.css";
-import { Protected } from "@/features/auth/components/protected/protected";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Protected } from "@/features/auth";
 
 export const metadata: Metadata = {
   title: "ソフトテニススコアキーパー",

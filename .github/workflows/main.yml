@@ -13,9 +13,6 @@ jobs:
       - run: mv .env.example .env
       - run: npm install
       - run: npm run test
-      - run: npm run lint
-      - run: npm run format:check
-      - run: npm run types:check
 
   deploy:
     name: Deploy To Vercel

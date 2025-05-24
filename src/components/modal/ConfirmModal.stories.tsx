@@ -13,7 +13,7 @@ const meta: Meta<typeof ConfirmModal> = {
     type: {
       control: "select",
       options: ["single", "double"],
-      description: "モーダルのタイプ（1ボタン or 2ボタン）",
+      description: "モーダルのタイプ 1ボタン or 2ボタン",
     },
     confirmText: {
       control: "text",

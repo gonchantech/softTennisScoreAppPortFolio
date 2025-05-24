@@ -4,10 +4,10 @@ import { useParams, useRouter } from "next/navigation";
 import {
   MatchResultComponent,
   MatchStatsComponent,
-} from "@/features/match/result/components";
-import { Match, PointHistory } from "@/features/match";
+  PointHistory,
+} from "@/features/match";
 import { Button } from "@/components/button/Button";
-import { useMatch } from "@/features/match/api/getMatch";
+import { useMatch, Match } from "@/features/match";
 import { Stack } from "@/components/stack";
 
 const MatchResultPage = () => {

@@ -3,7 +3,7 @@
 import { useRouter, usePathname } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 import { Loading } from "@/components/loading";
-import { useUser } from "@/features/auth";
+import { useUser } from "@/features/auth/api/getAuthUser";
 
 export type ProtectedProps = {
   children: ReactNode;

@@ -1,12 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useReducer } from "react";
-import {
-  MatchState,
-  RawPointInput,
-  MatchLength,
-  Player,
-} from "@/features/match";
+import { MatchState } from "@/features/match/scoring/types/matchState";
+import { RawPointInput } from "@/features/match/scoring/types/point";
+import { MatchLength } from "@/features/match/match-setup/types";
+import { Player } from "@/features/match/types/player";
 import { MatchStateContext } from "./MatchStateContext";
 import { matchStateReducer } from "./matchStateReducer";
 import { defaultMatchState } from "./constants/defaultMatchState";
@@ -46,7 +44,8 @@ export const MatchStateProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const removeLatestPoint = () => {
     if (stateHistory.current.length >= 2) {
-      let previousState = stateHistory.current[stateHistory.current.length - 2];
+      const previousState =
+        stateHistory.current[stateHistory.current.length - 2];
 
       // 最新の状態を削除(previousがまたstateリストに追加されるので二個消しておく)
       stateHistory.current = stateHistory.current.slice(0, -2);
